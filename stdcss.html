@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+              font-family: Arial, sans-serif;
+              background: #FAF9EE;
+              margin: 0;
+              padding: 20px;
+              display: flex;
+  justify-content: center;
+  align-items: center;
+            }
+            form {
+  background-color: #FED16A;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /*width: 100%;*/
+  max-width: 400px;
+  box-sizing: border-box;
+}
+h1 {
+  font-family: 'Times New Roman', serif;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #4a3c1a;
+}
+        </style>
+</head>
+<body>
+  <div>
+     <h1>Student registration form</h1>
+    <form action="#">
+        <label for="name">Student Name :</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">Email :</label>
+       <input type="email" id="email" name="email" required><br><br>
+       <label for="phone">Phone number :</label> 
+       <input type="tel" id="phone" name="phone" required><br><br>
+       <label for="gender">Gender :</label>
+      <input type="radio" id="male" name="gender" value="male">
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="female">
+      <label for="female">Female</label><br><br>
+      <label for="Branch">Branch :</label>
+      <select name="Branch" id="Branch">
+        <option value="CSE">CSE</option>
+        <option value="ECE">ECE</option>
+        <option value="EEE">EEE</option>
+        <option value="ME">ME</option>
+        <option value="CE">CE</option>
+        <option value="IT">IT</option>
+      </select> 
+      <br><br>
+        <button type="submit">submit</button>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </select>
+        </form>
+
+  </div>
+   
+</body>
+</html>
