@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Board</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .main {
+            text-align: center;
+        }
+        .title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .black {
+            background-color: #fff;
+            color: #000;
+        }
+        .white {
+            background-color: #000;
+            color: #fff;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        .selected {
+            border: 2px solid red; /* Highlight the selected piece */
+        }
+    </style>
+</head>
+<body>
+   <div class="main">
+    <h1 class="title">Chess Board</h1>
+    <div class="board">
+        <!-- Row 1 -->
+        <div class="cell black" data-pos="0,0">&#9814;</div>
+        <div class="cell white" data-pos="0,1">&#9817;</div>
+        <div class="cell black" data-pos="0,2"></div>
+        <div class="cell white" data-pos="0,3"></div>
+        <div class="cell black" data-pos="0,4"></div>
+        <div class="cell white" data-pos="0,5"></div>
+        <div class="cell black" data-pos="0,6">&#9817;</div>
+        <div class="cell white" data-pos="0,7">&#9814;</div>
+        <!-- Row 2 -->
+        <div class="cell white" data-pos="1,0">&#9816;</div>
+        <div class="cell black" data-pos="1,1">&#9817;</div>
+        <div class="cell white" data-pos="1,2"></div>
+        <div class="cell black" data-pos="1,3"></div>
+        <div class="cell white" data-pos="1,4"></div>
+        <div class="cell black" data-pos="1,5"></div>
+        <div class="cell white" data-pos="1,6">&#9817;</div>
+        <div class="cell black" data-pos="1,7">&#9816;</div>
+        <!-- Row 3 -->
+        <div class="cell black" data-pos="2,0">&#9815;</div>
+        <div class="cell white" data-pos="2,1">&#9817;</div>
+        <div class="cell black" data-pos="2,2"></div>
+        <div class="cell white" data-pos="2,3"></div>
+        <div class="cell black" data-pos="2,4"></div>
+        <div class="cell white" data-pos="2,5"></div>
+        <div class="cell black" data-pos="2,6">&#9817;</div>
+        <div class="cell white" data-pos="2,7">&#9815;</div>
+        <!-- Row 4 -->
+        <div class="cell white" data-pos="3,0">&#9813;</div>
+        <div class="cell black" data-pos="3,1">&#9817;</div>
+        <div class="cell white" data-pos="3,2"></div>
+        <div class="cell black" data-pos="3,3"></div>
+        <div class="cell white" data-pos="3,4"></div>
+        <div class="cell black" data-pos="3,5"></div>
+        <div class="cell white" data-pos="3,6">&#9817;</div>
+        <div class="cell black" data-pos="3,7">&#9813;</div>
+        <!-- Row 5 -->
+        <div class="cell black" data-pos="4,0">&#9812;</div>
+        <div class="cell white" data-pos="4,1">&#9817;</div>
+        <div class="cell black" data-pos="4,2"></div>
+        <div class="cell white" data-pos="4,3"></div>
+        <div class="cell black" data-pos="4,4"></div>
+        <div class="cell white" data-pos="4,5"></div>
+        <div class="cell black" data-pos="4,6">&#9817;</div>
+        <div class="cell white" data-pos="4,7">&#9812;</div>
+        <!-- Row 6 -->
+        <div class="cell white" data-pos="5,0">&#9815;</div>
+        <div class="cell black" data-pos="5,1">&#9817;</div>
+        <div class="cell white" data-pos="5,2"></div>
+        <div class="cell black" data-pos="5,3"></div>
+        <div class="cell white" data-pos="5,4"></div>
+        <div class="cell black" data-pos="5,5"></div>
+        <div class="cell white" data-pos="5,6">&#9817;</div>
+        <div class="cell black" data-pos="5,7">&#9815;</div>
+        <!-- Row 7 -->
+        <div class="cell black" data-pos="6,0">&#9816;</div>
+        <div class="cell white" data-pos="6,1">&#9817;</div>
+        <div class="cell black" data-pos="6,2"></div>
+        <div class="cell white" data-pos="6,3"></div>
+        <div class="cell black" data-pos="6,4"></div>
+        <div class="cell white" data-pos="6,5"></div>
+        <div class="cell black" data-pos="6,6">&#9817;</div>
+        <div class="cell white" data-pos="6,7">&#9816;</div>
+        <!-- Row 8 -->
+        <div class="cell white" data-pos="7,0">&#9814;</div>
+        <div class="cell black" data-pos="7,1">&#9817;</div>
+        <div class="cell white" data-pos="7,2"></div>
+        <div class="cell black" data-pos="7,3"></div>
+        <div class="cell white" data-pos="7,4"></div>
+        <div class="cell black" data-pos="7,5"></div>
+        <div class="cell white" data-pos="7,6">&#9817;</div>
+        <div class="cell black" data-pos="7,7">&#9814;</div>
+    </div>
+   </div>
+
+   <script>
+      let selectedPiece = null; // Stores the selected piece
+      let selectedCell = null; // Stores the selected cell
+
+      // Get all the cells in the board
+      const cells = document.querySelectorAll('.cell');
+
+      // Add click event listener to each cell
+      cells.forEach(cell => {
+          cell.addEventListener('click', function() {
+              if (selectedPiece) {
+                  // If a piece is selected, move it to the clicked cell
+                  movePiece(this);
+              } else {
+                  // Otherwise, select the piece
+                  selectPiece(this);
+              }
+          });
+      });
+
+      // Function to select a piece
+      function selectPiece(cell) {
+          // If it's not an empty cell, mark it as selected
+          if (cell.innerHTML.trim() !== "") {
+              selectedPiece = cell.innerHTML;
+              selectedCell = cell;
+              cell.classList.add('selected');
+              console.log('Piece selected:', selectedPiece);
+          }
+      }
+
+      // Function to move the piece to the new cell
+      function movePiece(targetCell) {
+          if (targetCell.innerHTML.trim() === "") {
+              targetCell.innerHTML = selectedPiece;
+              selectedCell.innerHTML = "";
+              selectedCell.classList.remove('selected');
+              console.log('Piece moved to:', targetCell.getAttribute('data-pos'));
+              resetSelection();
+          } else {
+              console.log('Target cell is not empty');
+          }
+      }
+
+      // Reset the selection state after a move
+      function resetSelection() {
+          selectedPiece = null;
+          selectedCell = null;
+      }
+   </script>
+</body>
+</html>
