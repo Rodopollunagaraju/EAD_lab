@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Google Maps - Live Location Tracker</title>
+    <style>
+      /* Fullscreen map */
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+    <script>
+      let map, userMarker, watchId;
+
+      function initMap() {
+        // Fallback location (Hyderabad)
+        const fallback = { lat: 17.3850, lng: 78.4867 };
+
+        // Initialize the map
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: fallback,
+          zoom: 14,
+        });
+
+        // Check if geolocation is supported
+        if ('geolocation' in navigator) {
+          // Start continuous tracking
+          watchId = navigator.geolocation.watchPosition(
+            (pos) => {
+              const p = {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude,
+              };
+
+              // If first time, create a marker and center map
+              if (!userMarker) {
+                userMarker = new google.maps.Marker({
+                  position: p,
+                  map,
+                  title: 'You are here',
+                });
+                map.setCenter(p);
+              } else {
+                // Update marker position
+                userMarker.setPosition(p);
+              }
+            },
+            (err) => {
+              console.error('Geolocation error:', err.message);
+              alert('Unable to get your location: ' + err.message);
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 1000 }
+          );
+        } else {
+          alert('Geolocation is not supported by this browser.');
+        }
+      }
+
+      // Optional function to stop tracking
+      function stopTracking() {
+        if (watchId) {
+          navigator.geolocation.clearWatch(watchId);
+          alert('Tracking stopped.');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <button onclick="stopTracking()" style="position:absolute;top:10px;left:10px;z-index:999;">Stop Tracking</button>
+
+    <!-- Google Maps API Script -->
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzwS8mNw7RWvID1vzuJ55Ijt-TJgZE4Po&callback=initMap"
+    ></script>
+  </body>
+</html>
